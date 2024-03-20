@@ -9,11 +9,15 @@ annotate service.Books with @(
             $Type : 'UI.DataField',
             Value : ID,
             Label : 'ID',
+            ![@UI.Importance] : #High
+
         },
         {
             $Type : 'UI.DataField',
             Value : author,
             Label : 'author',
+            ![@UI.Importance] : #High
+
         },
         // commented stock column so that the progress for stock column we can show,or else getting error for duplicate keys
         // {
@@ -25,12 +29,15 @@ annotate service.Books with @(
             $Type : 'UI.DataField',
             Value : title,
             Label : 'title',
+            ![@UI.Importance] : #High
         },
         // adding progress bar for column stock --1
         {
             $Type : 'UI.DataFieldForAnnotation',
             Target : '@UI.DataPoint#stock',
             Label : 'Instock',
+            ![@UI.Importance] : #High
+
         },
     ]
 );
@@ -53,6 +60,30 @@ annotate service.Books with @(
         TargetValue : 1000,
     }
 );
+
+// ---ComboBox in out
+annotate service.Books {
+    author @Common.ValueList: {
+        Label         : 'author',
+        CollectionPath: 'Books',
+        Parameters    : [
+            {
+                $Type            : 'Common.ValueListParameterOut',
+                LocalDataProperty: 'author',
+                ValueListProperty: 'author'
+            },
+            {
+                $Type            : 'Common.ValueListParameterIn',
+                LocalDataProperty: 'author',
+                ValueListProperty: 'author'
+            }
+        ]
+    }
+}
+
+
+
+
 // ---------------------------------------------List Page------Ends-------------------------<<<<<<<<
 
 
