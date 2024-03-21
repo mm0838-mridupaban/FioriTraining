@@ -1,8 +1,34 @@
 using my.bookshop as my from '../db/data-model';
 
 service CatalogService {
-     entity Books as projection on my.Books;
+     entity Books as projection on my.Books actions{
+      action CustomInbound(ID : String, title  : String,stock  : Integer,author  : String) returns String;
+         
+     };
+     action CustomCreateUnbound(ID : String, title  : String,stock  : Integer,author  : String) returns String;
 }
+
+annotate  CatalogService.Books with @odata.draft.enabled; //Receiving error in both way either cat-service.cds or anotation.cds
+
+
+//When false, create button will not work i.e we button will be there, if we click on it nothing happens
+annotate CatalogService.Books with @(
+  Capabilities.InsertRestrictions : {
+    Insertable : true,
+  }
+);
+
+
+// If we dont add the below code, by default delete button will be visible and working fine
+//When false, delete button will not even be present. i.e remove delete button
+annotate CatalogService.Books with @(
+ Capabilities.DeleteRestrictions : {
+    Deletable :isDeletable
+//     Deletable :true
+  }
+);
+
+
 
 
 // annotate CatalogService.Books with @(

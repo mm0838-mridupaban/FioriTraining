@@ -83,7 +83,6 @@
       "css": []
     },
     "routing": {
-      "config": {},
       "routes": [
         {
           "pattern": ":?query:",
@@ -109,6 +108,23 @@
                 "Books": {
                   "detail": {
                     "route": "BooksObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "actions": {
+                    "CustomAction1": {
+                      "press": "project2.ext.controller.CustomAction.CustomAction",
+                      "visible": true,
+                      "enabled": true,
+                      "requiresSelection": false,
+                      "text": "CustomAction1",
+                      "position": {
+                        "placement": "Before",
+                        "anchor": "DataFieldForAction::CatalogService.EntityContainer::CustomCreate"
+                      }
+                    }
                   }
                 }
               }

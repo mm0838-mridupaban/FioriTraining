@@ -19,6 +19,13 @@ annotate service.Books with @(
             ![@UI.Importance] : #High
 
         },
+        {
+            $Type : 'UI.DataField',
+            Value : isDeletable,
+            Label : 'isDeletable',
+            ![@UI.Importance] : #High
+
+        },
         // commented stock column so that the progress for stock column we can show,or else getting error for duplicate keys
         // {
         //     $Type : 'UI.DataField',
@@ -38,6 +45,18 @@ annotate service.Books with @(
             Label : 'Instock',
             ![@UI.Importance] : #High
 
+        },
+        // CustomCreate action
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'CatalogService.EntityContainer/CustomCreateUnbound',
+            Label : 'CapCreateOutBound',
+        },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'CatalogService.CustomInbound',
+            Label : 'CapCreateInBound',
+            Inline:true,
         },
     ]
 );
@@ -81,8 +100,28 @@ annotate service.Books {
     }
 }
 
+//When false, create button will not work i.e we button will be there, if we click on it nothing happens
+annotate service.Books with @(
+  Capabilities.InsertRestrictions : {
+    Insertable : true,
+  }
+);
 
 
+// If we dont add the below code, by default delete button will be visible and working fine
+//When false, delete button will not even be present. i.e remove delete button
+// annotate service.Books with @(
+//  Capabilities.DeleteRestrictions : {
+//     Deletable : true
+//   }
+// );
+
+// annotate CatalogService.Books with @(
+//  Capabilities.DeleteRestrictions : {
+//     Deletable :isDeletable
+// //     Deletable :true
+//   }
+// );
 
 // ---------------------------------------------List Page------Ends-------------------------<<<<<<<<
 
